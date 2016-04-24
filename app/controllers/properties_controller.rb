@@ -66,15 +66,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # POST /properties/:id/comments
-  def add_comment
-
-  end
-
-  # DELETE /properties/:id/comments/:id
-  def destroy_comment
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_property

@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
+
   resources :messages
-  resources :comments
   resources :properties
   resources :users
+
+  get '/properties/:property_id/comments/new' => 'comments#new'
+  post '/properties/:property_id/comments' => 'comments#create'
+  delete '/properties/:property_id/comments/:id' => 'comments#destroy'
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete '/logout' => 'sessions#destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
