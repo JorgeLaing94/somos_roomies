@@ -14,11 +14,16 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
-    @property = Property.new
+    if logged_in?
+      @property = Property.new
+    else
+      redirect_to '/properties'
+    end
   end
 
   # GET /properties/1/edit
   def edit
+    redirect_to '/properties' unless logged_in?
   end
 
   # POST /properties
@@ -59,6 +64,15 @@ class PropertiesController < ApplicationController
       format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /properties/:id/comments
+  def add_comment
+
+  end
+
+  # DELETE /properties/:id/comments/:id
+  def destroy_comment
   end
 
   private
