@@ -5,6 +5,6 @@ class Property < ActiveRecord::Base
   validate :price_is_not_negative
 
   def price_is_not_negative
-    errors.add(:price, 'price is less than 0!') unless price >= 0
+    errors.add(:price, 'price is less than 0!') unless price.nil? || price >= 0
   end
 end

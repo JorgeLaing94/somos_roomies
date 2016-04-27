@@ -30,9 +30,9 @@ class PropertiesController < ApplicationController
   # POST /properties.json
   def create
     @property = Property.new(property_params)
-
+    redirect_to '/properties' unless logged_in?
     respond_to do |format|
-      if @property.save
+      if current_user.properties.append(@property)
         format.html { redirect_to @property, notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else
