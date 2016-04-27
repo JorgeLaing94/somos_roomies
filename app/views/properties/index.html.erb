@@ -1,35 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Properties</h1>
+<h1>Properties</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>City</th>
-      <th>Price</th>
-      <th>Address</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @properties.each do |property| %>
-      <tr>
-        <td><%= property.title %></td>
-        <td><%= property.description %></td>
-        <td><%= property.city %></td>
-        <td><%= property.price %></td>
-        <td><%= property.address %></td>
-        <td><%= link_to 'Show', property %></td>
-        <td><%= link_to 'Edit', edit_property_path(property) %></td>
-        <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul>
+  <% @properties.each do |property| %>
+  <li>
+    <h3><%= property.title %></h3>
+    <p><b><%= "Price: $#{property.price}" %></b></p>
+    <p><i><%= property.description %></i></p>
+    <p><%= "City: #{property.city}" %></p>
+    <p><%= "Posted by: #{property.user.name}" %></p>
+    <p><%= link_to 'Show', property %></p>
+  </li>
+  <% end %>
+</ul>
 
 <br>
 
-<%= link_to 'New Property', new_property_path %>
