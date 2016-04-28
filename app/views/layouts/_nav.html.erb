@@ -2,7 +2,7 @@
   <a class="nav-btn" href="/">Our Properties</a>
   <% if logged_in? %>
     <a class="nav-btn" href= <%= "/users/#{current_user.id}" %> ><%= "#{current_user.name}'s Profile" %></a>
-    <a class="nav-btn" href="/">Inbox</a>
+    <a class="nav-btn" href="/messages">Inbox</a>
     <a class="nav-btn" href="/properties/new">Post a new property</a>
     <%= link_to 'Log out', '/logout', { method: :delete }  %>
   <% else %>

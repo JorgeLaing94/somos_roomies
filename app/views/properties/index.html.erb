@@ -5,15 +5,11 @@
 <ul>
   <% @properties.each do |property| %>
   <li>
-    <h3><%= property.title %></h3>
+    <h3><%= link_to property.title, property %></h3>
     <p><b><%= "Price: $#{property.price}" %></b></p>
     <p><i><%= property.description %></i></p>
     <p><%= "City: #{property.city}" %></p>
     <p><%= "Posted by: #{property.user.name}" %></p>
-    <p><%= link_to 'Show', property %></p>
   </li>
   <% end %>
 </ul>
-
-<br>
-

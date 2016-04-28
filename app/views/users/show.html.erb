@@ -1,19 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @user.name %>
-</p>
+</h1>
 
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+<% if logged_in? && current_user.id == @user.id %>
+  <%= link_to 'Edit user information', edit_user_path(@user) %> |
+<% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h2> Properties: </h2>
+<ul>
+<% @user.properties.each do |property| %>
+<li>
+    <h3><%= link_to property.title, property %></h3>
+    <p><b><%= "Price: $#{property.price}" %></b></p>
+    <p><i><%= property.description %></i></p>
+    <p><%= "City: #{property.city}" %></p>
+    <p><%= "Posted by: #{property.user.name}" %></p>
+    <% if logged_in? && current_user.id == @user.id %>
+  <%= link_to 'Edit property', edit_property_path(property) %>
+<% end %>
+  </li>
+<% end %>
+</ul>

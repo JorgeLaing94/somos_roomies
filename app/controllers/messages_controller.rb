@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @messages = current_user.messages
   end
 
   # GET /messages/1
@@ -24,10 +24,15 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
+    redirect_to '/' unless logged_in?
+
+    params_with_sender = message_params
+    params_with_sender[:sender] = current_user.name
+    @message = Message.new(params_with_sender)
+    recipient = User.find_by(email: message_params[:recipient_email])
 
     respond_to do |format|
-      if @message.save
+      if recipient.messages.append(@message)
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
@@ -69,6 +74,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:sender, :subject, :text)
+      params.require(:message).permit(:sender, :subject, :text, :recipient_email)
     end
 end
