@@ -25,6 +25,13 @@
         <strong>Address:</strong>
         <%= @property.address %>
       </p>
+
+       <p>
+        <strong>Owner:</strong>
+        <%= User.find(@property.user_id).name %> <br>
+        <%= User.find(@property.user_id).email %><br>
+
+      </p>
     </div>
     <div id="content" class="col-xs-8">
       <p><b>Photos:</b></p>
@@ -33,6 +40,9 @@
             <li>
               <%= image_tag photo.photo %> <br>
               <%= photo.description %>
+              <% if logged_in? && current_user.id == @property.user_id %>
+                <%= link_to 'Delete', photo, method: 'delete' %>
+              <% end %>
           </li>
           <% end %>
         </ul>
@@ -60,7 +70,7 @@
         <td><b><%= User.find(comment.user_id).name %></b></td>
         <td><%= comment.text %></td>
         <td><%= comment.created_at.to_date %></td>
-        <% if current_user.id == @property.user_id ||  current_user.id == comment.user_id %>
+        <% if logged_in? && (current_user.id == @property.user_id ||  current_user.id == comment.user_id) %>
           <td><%= link_to 'Delete', comment, method: 'delete' %></td>
         <% end %>
       </tr>
@@ -74,14 +84,14 @@
       <%= render 'comment_form' %>
     </div>
     <div id="content" class="col-xs-6">
-      <% if current_user.id == @property.user_id %>
+      <% if logged_in? && current_user.id == @property.user_id %>
         <%= render 'photo_form' %>
       <% end %>
     </div>
   </div>
 </div>
 
-<% if current_user.id == @property.user_id %>
+<% if logged_in? && current_user.id == @property.user_id %>
   <%= link_to 'Edit', edit_property_path(@property) %> |
 <% end %>
 <%= link_to 'Back', properties_path %>

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  resources :messages
+  resources :messages, except: [:edit, :update]
   resources :properties
   resources :comments, except: [:edit, :update, :new, :index]
   resources :photos, except: [:edit, :update, :new, :index]
-  resources :users
+  resources :users, except: [:index]
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
