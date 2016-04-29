@@ -4,6 +4,6 @@ class Message < ActiveRecord::Base
   validate :email_exists
 
   def email_exists
-    errors.add(:email, 'There are no users with that email.') unless User.exists?(email: :email)
+    errors.add(:email, 'There are no users with that email.') unless User.exists?(email: recipient_email)
   end
 end

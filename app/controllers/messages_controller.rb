@@ -32,7 +32,6 @@ class MessagesController < ApplicationController
     recipient = User.find_by(email: message_params[:recipient_email])
 
     respond_to do |format|
-      binding.pry
       if @message.save
         recipient.messages.append(@message)
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
