@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :messages
   resources :properties
-  resources :comments, except: [:edit, :update]
+  resources :comments, except: [:edit, :update, :new, :index]
+  resources :photos, except: [:edit, :update, :new, :index]
   resources :users
 
   get '/login' => 'sessions#new'

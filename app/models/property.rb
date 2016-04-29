@@ -1,6 +1,7 @@
 class Property < ActiveRecord::Base
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :photos, dependent: :destroy
   validates :title, :description, :city, :address, :price, presence: true
   validate :price_is_not_negative
 

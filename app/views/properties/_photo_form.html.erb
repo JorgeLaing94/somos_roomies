@@ -1,0 +1,12 @@
+<%= form_tag(@photo, multipart: true) do %>
+  <div class="field">
+    <%= label_tag :upload_photo %> <br>
+    <%= file_field_tag :photo %> <br>
+  </div>
+  <div class="field">
+    <%= label_tag :description %> <br>
+    <%= text_area_tag :description %> <br>
+    <%= hidden_field_tag :property_id, @property.id%>
+  </div>
+  <%= submit_tag 'Submit your photo', class: 'btn btn-default' %>
+<% end %>

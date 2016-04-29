@@ -11,6 +11,7 @@ class PropertiesController < ApplicationController
   # GET /properties/1.json
   def show
     @comment = Comment.new
+    @photo = Photo.new
   end
 
   # GET /properties/new
@@ -65,9 +66,6 @@ class PropertiesController < ApplicationController
       format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def add_comment
   end
 
   private

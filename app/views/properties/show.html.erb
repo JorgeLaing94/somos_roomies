@@ -1,45 +1,85 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
+<h2>
   <%= @property.title %>
-</p>
+</h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @property.description %>
-</p>
+<div id="main-container" class="container">
+  <div class="row">
+    <div id="content" class="col-xs-4">
+      <p>
+        <b>$<%= @property.price %></b>
+      </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @property.city %>
-</p>
+      <p>
+        <strong>Description:</strong>
+        <%= @property.description %>
+      </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @property.price %>
-</p>
+      <p>
+        <strong>City:</strong>
+        <%= @property.city %>
+      </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @property.address %>
-</p>
+      <p>
+        <strong>Address:</strong>
+        <%= @property.address %>
+      </p>
+    </div>
+    <div id="content" class="col-xs-8">
+      <p><b>Photos:</b></p>
+        <ul>
+          <% @property.photos.each do |photo| %>
+            <li>
+              <%= image_tag photo.photo %> <br>
+              <%= photo.description %>
+          </li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+</div>
+
 
 <h3>Comments:</h3>
-<ul>
-<% @property.comments.each do |comment| %>
-  <li> 
-    <p><b><%= User.find(comment.user_id).name %>:</b></p>
-    <p><%= comment.text %></p>
-    <% if current_user.id == @property.user_id ||  current_user.id == comment.user_id %>
-      <%= link_to 'Delete', comment, method: 'delete' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Comment</th>
+      <th>Date</th>
+      <th></th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+    <tbody>
+    <% @property.comments.each do |comment| %>
+      <tr>
+        <td><b><%= User.find(comment.user_id).name %></b></td>
+        <td><%= comment.text %></td>
+        <td><%= comment.created_at.to_date %></td>
+        <% if current_user.id == @property.user_id ||  current_user.id == comment.user_id %>
+          <td><%= link_to 'Delete', comment, method: 'delete' %></td>
+        <% end %>
+      </tr>
     <% end %>
-  </li>
-<% end %>
-</ul>
+  </tbody>
+</table>
 
-<%= render 'comment_form' %>
-
+<div id="main-container" class="container">
+  <div class="row">
+    <div id="content" class="col-xs-6">
+      <%= render 'comment_form' %>
+    </div>
+    <div id="content" class="col-xs-6">
+      <% if current_user.id == @property.user_id %>
+        <%= render 'photo_form' %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <% if current_user.id == @property.user_id %>
   <%= link_to 'Edit', edit_property_path(@property) %> |
