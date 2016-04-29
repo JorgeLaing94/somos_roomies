@@ -1,0 +1,8 @@
+<%= form_tag(@comment) do %>
+  <div class="field">
+    <%= label_tag :add_your_comment %> <br>
+    <%= text_area_tag :text %>
+    <%= hidden_field_tag :property_id, @property.id%>
+  </div>
+  <%= submit_tag 'Submit your comment' %>
+<% end %>

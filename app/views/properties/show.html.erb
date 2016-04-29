@@ -25,5 +25,23 @@
   <%= @property.address %>
 </p>
 
-<%= link_to 'Edit', edit_property_path(@property) %> |
+<h3>Comments:</h3>
+<ul>
+<% @property.comments.each do |comment| %>
+  <li> 
+    <p><b><%= User.find(comment.user_id).name %>:</b></p>
+    <p><%= comment.text %></p>
+    <% if current_user.id == @property.user_id ||  current_user.id == comment.user_id %>
+      <%= link_to 'Delete', comment, method: 'delete' %>
+    <% end %>
+  </li>
+<% end %>
+</ul>
+
+<%= render 'comment_form' %>
+
+
+<% if current_user.id == @property.user_id %>
+  <%= link_to 'Edit', edit_property_path(@property) %> |
+<% end %>
 <%= link_to 'Back', properties_path %>

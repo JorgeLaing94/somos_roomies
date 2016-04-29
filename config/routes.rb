@@ -3,11 +3,8 @@ Rails.application.routes.draw do
 
   resources :messages
   resources :properties
+  resources :comments, except: [:edit, :update]
   resources :users
-
-  get '/properties/:property_id/comments/new' => 'comments#new'
-  post '/properties/:property_id/comments' => 'comments#create'
-  delete '/properties/:property_id/comments/:id' => 'comments#destroy'
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
