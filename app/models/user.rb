@@ -1,3 +1,4 @@
+# Class to models users
 class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :properties, dependent: :destroy
